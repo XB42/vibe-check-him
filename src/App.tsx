@@ -204,101 +204,86 @@ function App() {
           </div>
         </div>
 
-        {/* Timeline Section */}
-        <div className="max-w-4xl mx-auto mt-32 mb-32 relative">
-          <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-white bg-opacity-20"></div>
-          
-          {/* First Step */}
-          <div className="relative mb-24">
-            <div className="flex items-center">
-              <div className="w-1/2 pr-8 text-right">
-                <div className="bg-white bg-opacity-20 backdrop-blur-lg p-8 rounded-3xl shadow-xl border border-white border-opacity-20 transform hover:scale-105 transition-transform">
-                  <h3 className="text-white text-xl font-semibold mb-4">Tell us what you want!</h3>
-                  <p className="text-white text-lg mb-4">We are here to Listen! Answer our set of questions or directly tell us what you are looking for!</p>
-                  <ul className="text-white text-left list-none space-y-2">
-                    <li className="flex items-center">
-                      <AlertTriangle className="w-4 h-4 mr-2 text-red-400" />
-                      Instantly Blacklist Andrew Tate Fans
-                    </li>
-                    <li className="flex items-center">
-                      <AlertTriangle className="w-4 h-4 mr-2 text-red-400" />
-                      Instantly Blacklist Trump supporters
-                    </li>
-                    <li className="flex items-center">
-                      <Check className="w-4 h-4 mr-2 text-green-400" />
-                      Add income range
-                    </li>
-                    <li className="flex items-center">
-                      <Check className="w-4 h-4 mr-2 text-green-400" />
-                      Add minimum height
-                    </li>
-                    <li className="flex items-center">
-                      <Check className="w-4 h-4 mr-2 text-green-400" />
-                      And lots more
-                    </li>
-                  </ul>
+        {/* Steps Section */}
+        <div className="max-w-6xl mx-auto mt-32 mb-32">
+          <h2 className="text-4xl md:text-5xl font-bold text-white text-center mb-16 drop-shadow-lg">
+            How It Works
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Step 1 */}
+            <div className="bg-white bg-opacity-20 backdrop-blur-lg p-8 rounded-3xl shadow-xl border border-white border-opacity-20 transform hover:scale-105 transition-transform">
+              <div className="flex items-center mb-6">
+                <div className="w-12 h-12 bg-white rounded-full border-4 border-pink-400 flex items-center justify-center mr-4">
+                  <span className="text-pink-600 font-bold text-xl">1</span>
                 </div>
+                <h3 className="text-white text-2xl font-semibold">Tell us what you want!</h3>
               </div>
-              <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full border-4 border-pink-400 flex items-center justify-center">
-                <span className="text-pink-600 font-bold">1</span>
-              </div>
+              <p className="text-white text-lg mb-6">We are here to Listen! Answer our set of questions or directly tell us what you are looking for!</p>
+              <ul className="text-white space-y-3">
+                <li className="flex items-center">
+                  <AlertTriangle className="w-5 h-5 mr-3 text-red-400" />
+                  <span>Instantly Blacklist Andrew Tate Fans</span>
+                </li>
+                <li className="flex items-center">
+                  <AlertTriangle className="w-5 h-5 mr-3 text-red-400" />
+                  <span>Instantly Blacklist Trump supporters</span>
+                </li>
+                <li className="flex items-center">
+                  <Check className="w-5 h-5 mr-3 text-green-400" />
+                  <span>Add income range</span>
+                </li>
+                <li className="flex items-center">
+                  <Check className="w-5 h-5 mr-3 text-green-400" />
+                  <span>Add minimum height</span>
+                </li>
+                <li className="flex items-center">
+                  <Check className="w-5 h-5 mr-3 text-green-400" />
+                  <span>And lots more</span>
+                </li>
+              </ul>
             </div>
-          </div>
 
-          {/* Second Step */}
-          <div className="relative mb-24">
-            <div className="flex items-center">
-              <div className="w-1/2"></div>
-              <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full border-4 border-pink-400 flex items-center justify-center">
-                <span className="text-pink-600 font-bold">2</span>
-              </div>
-              <div className="w-1/2 pl-8">
-                <div className="bg-white bg-opacity-20 backdrop-blur-lg p-8 rounded-3xl shadow-xl border border-white border-opacity-20 transform hover:scale-105 transition-transform">
-                  <h3 className="text-white text-xl font-semibold mb-4">Use our conversations</h3>
-                  <p className="text-white text-lg mb-4">Instead of thinking of how to respond to his boring messages, let us handle it for you! Just send us screenshots of his conversations and we will craft the perfect response.</p>
-                  <p className="text-white text-lg italic">Response is trained to subtly identify if he is what you are looking for</p>
+            {/* Step 2 */}
+            <div className="bg-white bg-opacity-20 backdrop-blur-lg p-8 rounded-3xl shadow-xl border border-white border-opacity-20 transform hover:scale-105 transition-transform">
+              <div className="flex items-center mb-6">
+                <div className="w-12 h-12 bg-white rounded-full border-4 border-pink-400 flex items-center justify-center mr-4">
+                  <span className="text-pink-600 font-bold text-xl">2</span>
                 </div>
+                <h3 className="text-white text-2xl font-semibold">Use our conversations</h3>
               </div>
+              <p className="text-white text-lg mb-4">Instead of thinking of how to respond to his boring messages, let us handle it for you! Just send us screenshots of his conversations and we will craft the perfect response.</p>
+              <p className="text-white text-lg italic">Response is trained to subtly identify if he is what you are looking for</p>
             </div>
-          </div>
 
-          {/* Third Step */}
-          <div className="relative mb-24">
-            <div className="flex items-center">
-              <div className="w-1/2 pr-8 text-right">
-                <div className="bg-white bg-opacity-20 backdrop-blur-lg p-8 rounded-3xl shadow-xl border border-white border-opacity-20 transform hover:scale-105 transition-transform">
-                  <h3 className="text-white text-xl font-semibold mb-4">Give us his socials</h3>
-                  <p className="text-white text-lg">Our skills are at par with yours! We will find you all relevant information of him on the internet. Good or Bad.</p>
+            {/* Step 3 */}
+            <div className="bg-white bg-opacity-20 backdrop-blur-lg p-8 rounded-3xl shadow-xl border border-white border-opacity-20 transform hover:scale-105 transition-transform">
+              <div className="flex items-center mb-6">
+                <div className="w-12 h-12 bg-white rounded-full border-4 border-pink-400 flex items-center justify-center mr-4">
+                  <span className="text-pink-600 font-bold text-xl">3</span>
                 </div>
+                <h3 className="text-white text-2xl font-semibold">Give us his socials</h3>
               </div>
-              <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full border-4 border-pink-400 flex items-center justify-center">
-                <span className="text-pink-600 font-bold">3</span>
-              </div>
+              <p className="text-white text-lg">Our skills are at par with yours! We will find you all relevant information of him on the internet. Good or Bad.</p>
             </div>
-          </div>
 
-          {/* Fourth Step */}
-          <div className="relative">
-            <div className="flex items-center">
-              <div className="w-1/2"></div>
-              <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full border-4 border-pink-400 flex items-center justify-center">
-                <span className="text-pink-600 font-bold">4</span>
+            {/* Step 4 */}
+            <div className="bg-white bg-opacity-20 backdrop-blur-lg p-8 rounded-3xl shadow-xl border border-white border-opacity-20 transform hover:scale-105 transition-transform">
+              <div className="flex items-center mb-6">
+                <div className="w-12 h-12 bg-white rounded-full border-4 border-pink-400 flex items-center justify-center mr-4">
+                  <span className="text-pink-600 font-bold text-xl">4</span>
+                </div>
+                <h3 className="text-white text-2xl font-semibold">Get your verdict</h3>
               </div>
-              <div className="w-1/2 pl-8">
-                <div className="bg-white bg-opacity-20 backdrop-blur-lg p-8 rounded-3xl shadow-xl border border-white border-opacity-20 transform hover:scale-105 transition-transform">
-                  <h3 className="text-white text-xl font-semibold mb-4">Get your verdict</h3>
-                  <p className="text-white text-lg mb-4">Unable to decide? Don't worry! We will give each guy a score out of 10 on the parameters set by you.</p>
-                  <p className="text-white text-lg">We will also give you the best way to drive the guy away in case he is not a good fit.</p>
-                  <div className="flex justify-center space-x-8 mt-6">
-                    <div className="flex items-center">
-                      <ThumbsDown className="w-6 h-6 text-red-400 mr-2" />
-                      <span className="text-red-400 font-semibold">Red Flag</span>
-                    </div>
-                    <div className="flex items-center">
-                      <ThumbsUp className="w-6 h-6 text-green-400 mr-2" />
-                      <span className="text-green-400 font-semibold">Green Flag</span>
-                    </div>
-                  </div>
+              <p className="text-white text-lg mb-4">Unable to decide? Don't worry! We will give each guy a score out of 10 on the parameters set by you.</p>
+              <p className="text-white text-lg mb-6">We will also give you the best way to drive the guy away in case he is not a good fit.</p>
+              <div className="flex justify-center space-x-8">
+                <div className="flex items-center">
+                  <ThumbsDown className="w-6 h-6 text-red-400 mr-2" />
+                  <span className="text-red-400 font-semibold">Red Flag</span>
+                </div>
+                <div className="flex items-center">
+                  <ThumbsUp className="w-6 h-6 text-green-400 mr-2" />
+                  <span className="text-green-400 font-semibold">Green Flag</span>
                 </div>
               </div>
             </div>
