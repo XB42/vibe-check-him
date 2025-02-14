@@ -1,6 +1,54 @@
 import React, { useState } from 'react';
 import { User, MessageCircle, Search, Percent, Brain, ChevronRight, Shield, Heart, AlertTriangle, ThumbsUp, ThumbsDown, Check } from 'lucide-react';
 
+interface EmailFormProps {
+  email: string;
+  onEmailChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onSubmit: (e: React.FormEvent) => void;
+}
+
+const EmailForm: React.FC<EmailFormProps> = ({ email, onEmailChange, onSubmit }) => (
+  <form onSubmit={onSubmit} className="space-y-4">
+    <input
+      type="email"
+      value={email}
+      onChange={onEmailChange}
+      placeholder="Enter your email"
+      className="w-full px-4 py-3 rounded-full bg-white bg-opacity-90 placeholder-gray-400 text-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-400"
+      required
+    />
+    <button
+      type="submit"
+      className="w-full px-6 py-3 text-lg font-medium text-pink-600 bg-white rounded-full hover:bg-pink-100 transition-colors shadow-xl hover:shadow-2xl transform hover:-translate-y-1"
+    >
+      Get Early Access 💖
+    </button>
+  </form>
+);
+
+interface SuccessMessageProps {
+  shareLink: string;
+}
+
+const SuccessMessage: React.FC<SuccessMessageProps> = ({ shareLink }) => (
+  <div className="text-center py-4">
+    <p className="text-white text-lg font-medium mb-2">
+      Thanks, queen! 👑
+    </p>
+    <p className="text-white text-opacity-90 mb-4">
+      We'll send you an invite soon!
+    </p>
+    <a 
+      href={shareLink}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex items-center px-6 py-2 text-sm font-medium text-pink-600 bg-white rounded-full hover:bg-pink-100 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+    >
+      Share the love! 💕
+    </a>
+  </div>
+);
+
 function App() {
   const [heroEmail, setHeroEmail] = useState('');
   const [heroSubmitted, setHeroSubmitted] = useState(false);
@@ -77,82 +125,6 @@ function App() {
     setFooterSubmitted(true);
   };
 
-  const HeroEmailForm = () => (
-    <form onSubmit={handleHeroSubmit} className="space-y-4">
-      <input
-        type="email"
-        value={heroEmail}
-        onChange={(e) => setHeroEmail(e.target.value)}
-        placeholder="Enter your email"
-        className="w-full px-4 py-3 rounded-full bg-white bg-opacity-90 placeholder-gray-400 text-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-400"
-        required
-      />
-      <button
-        type="submit"
-        className="w-full px-6 py-3 text-lg font-medium text-pink-600 bg-white rounded-full hover:bg-pink-100 transition-colors shadow-xl hover:shadow-2xl transform hover:-translate-y-1"
-      >
-        Get Early Access 💖
-      </button>
-    </form>
-  );
-
-  const FooterEmailForm = () => (
-    <form onSubmit={handleFooterSubmit} className="space-y-4">
-      <input
-        type="email"
-        value={footerEmail}
-        onChange={(e) => setFooterEmail(e.target.value)}
-        placeholder="Enter your email"
-        className="w-full px-4 py-3 rounded-full bg-white bg-opacity-90 placeholder-gray-400 text-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-400"
-        required
-      />
-      <button
-        type="submit"
-        className="w-full px-6 py-3 text-lg font-medium text-pink-600 bg-white rounded-full hover:bg-pink-100 transition-colors shadow-xl hover:shadow-2xl transform hover:-translate-y-1"
-      >
-        Get Early Access 💖
-      </button>
-    </form>
-  );
-
-  const HeroSuccessMessage = () => (
-    <div className="text-center py-4">
-      <p className="text-white text-lg font-medium mb-2">
-        Thanks, queen! 👑
-      </p>
-      <p className="text-white text-opacity-90 mb-4">
-        We'll send you an invite soon!
-      </p>
-      <a 
-        href={heroShareLink}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-flex items-center px-6 py-2 text-sm font-medium text-pink-600 bg-white rounded-full hover:bg-pink-100 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1"
-      >
-        Share the love! 💕
-      </a>
-    </div>
-  );
-
-  const FooterSuccessMessage = () => (
-    <div className="text-center py-4">
-      <p className="text-white text-lg font-medium mb-2">
-        Thanks, queen! 👑
-      </p>
-      <p className="text-white text-opacity-90 mb-4">
-        We'll send you an invite soon!
-      </p>
-      <a 
-        href={footerShareLink}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-flex items-center px-6 py-2 text-sm font-medium text-pink-600 bg-white rounded-full hover:bg-pink-100 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1"
-      >
-        Share the love! 💕
-      </a>
-    </div>
-  );
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-400 via-purple-300 to-pink-500">
       {/* Hero Section */}
@@ -171,7 +143,15 @@ function App() {
               Your AI bestie who helps you quickly filter red flags in your dating app matches. Stop wasting time on the wrong guys!
             </p>
             <div className="bg-white bg-opacity-20 backdrop-blur-lg p-6 rounded-3xl shadow-xl border border-white border-opacity-20 max-w-md">
-              {!heroSubmitted ? <HeroEmailForm /> : <HeroSuccessMessage />}
+              {!heroSubmitted ? (
+                <EmailForm 
+                  email={heroEmail}
+                  onEmailChange={(e) => setHeroEmail(e.target.value)}
+                  onSubmit={handleHeroSubmit}
+                />
+              ) : (
+                <SuccessMessage shareLink={heroShareLink} />
+              )}
             </div>
           </div>
           <div className="md:w-1/2 relative">
@@ -335,7 +315,15 @@ function App() {
             Join thousands of smart women who are done with dating drama. Let AI be your wingwoman and never miss a red flag again! 💅
           </p>
           <div className="max-w-md mx-auto">
-            {!footerSubmitted ? <FooterEmailForm /> : <FooterSuccessMessage />}
+            {!footerSubmitted ? (
+              <EmailForm 
+                email={footerEmail}
+                onEmailChange={(e) => setFooterEmail(e.target.value)}
+                onSubmit={handleFooterSubmit}
+              />
+            ) : (
+              <SuccessMessage shareLink={footerShareLink} />
+            )}
           </div>
         </div>
       </div>
