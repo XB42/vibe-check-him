@@ -5,9 +5,10 @@ interface EmailFormProps {
   email: string;
   onEmailChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmit: (e: React.FormEvent) => void;
+  isSubmitting: boolean;
 }
 
-const EmailForm: React.FC<EmailFormProps> = ({ email, onEmailChange, onSubmit }) => (
+const EmailForm: React.FC<EmailFormProps> = ({ email, onEmailChange, onSubmit, isSubmitting }) => (
   <form onSubmit={onSubmit} className="space-y-4">
     <input
       type="email"
@@ -16,12 +17,14 @@ const EmailForm: React.FC<EmailFormProps> = ({ email, onEmailChange, onSubmit })
       placeholder="Enter your email"
       className="w-full px-4 py-3 rounded-full bg-white bg-opacity-90 placeholder-gray-400 text-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-400"
       required
+      disabled={isSubmitting}
     />
     <button
       type="submit"
-      className="w-full px-6 py-3 text-lg font-medium text-pink-600 bg-white rounded-full hover:bg-pink-100 transition-colors shadow-xl hover:shadow-2xl transform hover:-translate-y-1"
+      className="w-full px-6 py-3 text-lg font-medium text-pink-600 bg-white rounded-full hover:bg-pink-100 transition-colors shadow-xl hover:shadow-2xl transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed"
+      disabled={isSubmitting}
     >
-      Get Early Access 💖
+      {isSubmitting ? 'Submitting...' : 'Get Early Access 💖'}
     </button>
   </form>
 );
@@ -53,10 +56,14 @@ function App() {
   const [heroEmail, setHeroEmail] = useState('');
   const [heroSubmitted, setHeroSubmitted] = useState(false);
   const [heroShareLink, setHeroShareLink] = useState('');
+  const [heroSubmitting, setHeroSubmitting] = useState(false);
   
   const [footerEmail, setFooterEmail] = useState('');
   const [footerSubmitted, setFooterSubmitted] = useState(false);
   const [footerShareLink, setFooterShareLink] = useState('');
+  const [footerSubmitting, setFooterSubmitting] = useState(false);
+
+  const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwtkzjL4T5J8WhK9M6lDvvwaeL5C8vnFfZnslmbtp4Q88YmGqNz1EilMp-RqsCL2fqa/exec';
 
   const twitterShareLinks = [
     "https://twitter.com/intent/tweet?text=No%20More%20Toxic%20Guys%20-%20Get%20the%20Truth%21%20Check%3A%20vibecheckhim.com",
@@ -111,18 +118,44 @@ function App() {
     "https://twitter.com/intent/tweet?text=Start%20Loving%20Smarter%20Today%21%20Check%3A%20vibecheckhim.com"
   ];
 
-  const handleHeroSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const randomIndex = Math.floor(Math.random() * twitterShareLinks.length);
-    setHeroShareLink(twitterShareLinks[randomIndex]);
-    setHeroSubmitted(true);
+  const submitEmail = async (email: string, setSubmitting: (value: boolean) => void, setSubmitted: (value: boolean) => void, setShareLink: (value: string) => void) => {
+    setSubmitting(true);
+    try {
+      const formData = new FormData();
+      formData.append('email', email);
+      formData.append('timestamp', new Date().toISOString());
+
+      const response = await fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await response.json();
+      
+      if (data.status === 'success') {
+        const randomIndex = Math.floor(Math.random() * twitterShareLinks.length);
+        setShareLink(twitterShareLinks[randomIndex]);
+        setSubmitted(true);
+      } else {
+        console.error('Failed to submit email:', data.message);
+        alert('Failed to submit email. Please try again later.');
+      }
+    } catch (error) {
+      console.error('Error submitting email:', error);
+      alert('Failed to submit email. Please try again later.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
-  const handleFooterSubmit = (e: React.FormEvent) => {
+  const handleHeroSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const randomIndex = Math.floor(Math.random() * twitterShareLinks.length);
-    setFooterShareLink(twitterShareLinks[randomIndex]);
-    setFooterSubmitted(true);
+    await submitEmail(heroEmail, setHeroSubmitting, setHeroSubmitted, setHeroShareLink);
+  };
+
+  const handleFooterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await submitEmail(footerEmail, setFooterSubmitting, setFooterSubmitted, setFooterShareLink);
   };
 
   return (
@@ -148,6 +181,7 @@ function App() {
                   email={heroEmail}
                   onEmailChange={(e) => setHeroEmail(e.target.value)}
                   onSubmit={handleHeroSubmit}
+                  isSubmitting={heroSubmitting}
                 />
               ) : (
                 <SuccessMessage shareLink={heroShareLink} />
@@ -305,6 +339,7 @@ function App() {
                 email={footerEmail}
                 onEmailChange={(e) => setFooterEmail(e.target.value)}
                 onSubmit={handleFooterSubmit}
+                isSubmitting={footerSubmitting}
               />
             ) : (
               <SuccessMessage shareLink={footerShareLink} />
